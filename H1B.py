@@ -52,26 +52,67 @@ t10 = d10['Initial Approvals'].sum()
 t09 = d09['Initial Approvals'].sum()
 
 cat=['2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023']
-values1=[str(t09),str(t10),str(t11),str(t12),str(t13),str(t14),str(t15),str(t16),str(t17),str(t18),str(t19),str(t20),str(t21),str(t22),str(t23)]
 values=[t09,t10,t11,t12,t13,t14,t15,t16,t17,t18,t19,t20,t21,t22,t23]
 
 
+e09 = d09['Employer'].value_counts()
+e10 = d10['Employer'].value_counts()
+e11 = d11['Employer'].value_counts()
+e12 = d12['Employer'].value_counts()
+e13 = d13['Employer'].value_counts()
+e14 = d14['Employer'].value_counts()
+e15 = d15['Employer'].value_counts()
+e16 = d16['Employer'].value_counts()
+e17 = d17['Employer'].value_counts()
+e18 = d18['Employer'].value_counts()
+e19 = d19['Employer'].value_counts()
+e20 = d20['Employer'].value_counts()
+e21 = d21['Employer'].value_counts()
+e22 = d22['Employer'].value_counts()
+e23 = d23['Employer'].value_counts()
+
+total_sum = e09.add(e10, fill_value=0).add(e11, fill_value=0).add(e12, fill_value=0).add(e13, fill_value=0).add(e14, fill_value=0).add(e15, fill_value=0).add(e16, fill_value=0).add(e17, fill_value=0).add(e18, fill_value=0).add(e19, fill_value=0).add(e20, fill_value=0).add(e21, fill_value=0).add(e22, fill_value=0).add(e23, fill_value=0)
 
 
+############# PLOTTING HIGHEST EMPLOYER GRAPH #######################
 
 
-dat={'Year': cat,'Approvals':values}
+# Assuming total_sum is your Pandas Series containing the summed counts
+top_10_values = total_sum.nlargest(10)
 
-sns.lineplot(x='Year', y='Approvals', data=dat)
+# Convert the index and values of the top 10 values to a DataFrame for plotting
+top_10_df = top_10_values.reset_index(name='Counts')
 
-plt.xticks(rotation=45, ha='right')
-plt.tight_layout()
+# Create the bar plot using Seaborn
+plt.figure(figsize=(10, 6))  # Set the size of the plot
+sns.barplot(x=top_10_values.index, y='Counts', data=top_10_df)
 
-
-# Adding labels and title
-plt.xlabel('Year')
-plt.ylabel('Approvals')
-plt.title('H1B Data Analysis')
+# Set labels and title
+plt.xlabel('Companies')
+plt.ylabel('Counts')
+plt.title('Highest H1B Visa Recruiters from 2009-23')
 
 # Show the plot
+plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+plt.tight_layout()
 plt.show()
+
+#############################################################
+
+#PLOTTING LINE GRAPH OF H1B APPROVALS
+
+# dat={'Year': cat,'Approvals':values}
+
+# sns.lineplot(x='Year', y='Approvals', data=dat)
+
+# plt.xticks(rotation=45, ha='right')
+# plt.tight_layout()
+
+
+# # Adding labels and title
+# plt.xlabel('Year')
+# plt.ylabel('Approvals')
+# plt.title('H1B Data Analysis')
+
+# # Show the plot
+# plt.show()
